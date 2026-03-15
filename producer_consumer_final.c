@@ -2,59 +2,46 @@
 #include <stdlib.h>
 
 #define BUFFER_SIZE 7
-#define NUM_OPERATIONS 20
 
 int buffer[BUFFER_SIZE];
-int head = 0;
-int tail = 0;
-int count = 0; // Number of items in the buffer
+int head = 0, tail = 0;
+int empty = BUFFER_SIZE, full = 0;
+int item = 0;
 
-// Returns 1 if item was produced, 0 if buffer is full
-int produce(int item) {
-    if (count == BUFFER_SIZE) {
-        printf("Buffer is full. Producer cannot produce.\n");
-        return 0;
-    }
-    buffer[tail] = item;
+void produce() {
+    if (full == BUFFER_SIZE)
+        return; // Buffer is full, cannot produce
+    buffer[tail % BUFFER_SIZE] = item;
     tail = (tail + 1) % BUFFER_SIZE;
-    count++;
+    full++;
+    empty--;
     printf("Producer produces: %d\n", item);
-    return 1;
 }
 
-// Returns 1 if item was consumed, 0 if buffer is empty
-int consume() {
-    if (count == 0) {
-        printf("Buffer is empty. Consumer cannot consume.\n");
-        return 0;
-    }
-    int item = buffer[head];
+void consume() {
+    if (empty == BUFFER_SIZE)
+        return; // Buffer is empty, cannot consume
+    printf("Consumer consumes: %d\n", buffer[head % BUFFER_SIZE]);
     head = (head + 1) % BUFFER_SIZE;
-    count--;
-    printf("Consumer consumes: %d\n", item);
-    return 1;
-}
-
-void printBuffer() {
-    printf("Buffer contents: ");
-    for (int i = 0; i < count; i++) {
-        int index = (head + i) % BUFFER_SIZE;
-        printf("%d ", buffer[index]);
-    }
-    printf("\n");
+    empty++;
+    full--;
 }
 
 int main() {
+    int NUM_OPERATIONS;
+    int random_num;
+
+    printf("Enter number of operations: ");
+    scanf("%d", &NUM_OPERATIONS);
+
     int k = NUM_OPERATIONS;
     while (k > 0) {
-        int random_num = rand() % 11;
-        if (random_num % 2 == 0) {
-            int item = 100 + (rand() % 101); // produce random item in [100,200]
-            produce(item);
-        } else {
+        random_num = rand() % 11;
+        item = 100 + (rand() % 101);
+        if (random_num % 2 == 0)
+            produce();
+        else
             consume();
-        }
-        printBuffer();
         k--;
     }
     return 0;
