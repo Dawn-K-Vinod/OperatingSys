@@ -13,7 +13,7 @@ Description: A simple C program (even though we can do it better) to show the si
 int buffer[BUFFER_SIZE];
 int head = 0, tail = 0; // To mark the FRONT and REAR of the Circular queue `buffer[]`
 int empty = BUFFER_SIZE, full = 0;
-int item = 0;
+int item = 0; int count = 0;
 
 void produce() {
     if (full == BUFFER_SIZE)
@@ -35,12 +35,12 @@ void consume() {
 }
 // To print the BUFFER contents
 void printBuffer() {
-    printf("Buffer contents: ");
-    for (int i = 0; index!=tail; i++) {
+    printf("Buffer contents: [");
+    for (int i = 0; i < count; i++) {
         int index = (head + i) % BUFFER_SIZE;
         printf("%d ", buffer[index]);
     }
-    printf("\n\n");
+    printf("]\n\n");
 }
 
 int main() {
