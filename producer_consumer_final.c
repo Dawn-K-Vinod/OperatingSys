@@ -27,6 +27,15 @@ void consume() {
     full--;
 }
 
+void printBuffer() {
+    printf("Buffer contents: ");
+    for (int i = 0; i < count; i++) {
+        int index = (head + i) % BUFFER_SIZE;
+        printf("%d ", buffer[index]);
+    }
+    printf("\n\n");
+}
+
 int main() {
     int NUM_OPERATIONS;
     int random_num;
@@ -42,6 +51,7 @@ int main() {
             produce();
         else
             consume();
+        printBuffer();
         k--;
     }
     return 0;
