@@ -1,9 +1,9 @@
 /*
-Author     : Dawn K Vinod
-Description: A simple C program (even though we can do it better) to show the simulation of Producer-Consumer solution. 
-             This has to be done using the Semaphores "empty", "full", "mutex".
-             But since we are using 2 basic functions `produce()` and `consume()` and only one function runs at a time, the "mutex" is not needed.
-*/
+ A *uthor     : Dawn K Vinod
+ Description: A simple C program (even though we can do it better) to show the simulation of Producer-Consumer solution.
+ This has to be done using the Semaphores "empty", "full", "mutex".
+ But since we are using 2 basic functions `produce()` and `consume()` and only one function runs at a time, the "mutex" is not needed.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,20 +18,20 @@ int item = 0; int count = 0;
 void produce() {
     if (full == BUFFER_SIZE)
         return; // Buffer is full, cannot produce
-    buffer[tail % BUFFER_SIZE] = item;
+        buffer[tail % BUFFER_SIZE] = item;
     tail = (tail + 1) % BUFFER_SIZE;
-    full++;
-    empty--;
+    full++; empty--;
+    count++;
     printf("Producer produces: %d\n", item);
 }
 
 void consume() {
     if (empty == BUFFER_SIZE)
         return; // Buffer is empty, cannot consume
-    printf("Consumer consumes: %d\n", buffer[head % BUFFER_SIZE]);
+        printf("Consumer consumes: %d\n", buffer[head % BUFFER_SIZE]);
     head = (head + 1) % BUFFER_SIZE;
-    empty++;
-    full--;
+    empty++; full--;
+    count--;
 }
 // To print the BUFFER contents
 void printBuffer() {
