@@ -1,10 +1,17 @@
+/*
+Author     : Dawn K Vinod
+Description: A simple C program (even though we can do it better) to show the simulation of Producer-Consumer solution. 
+             This has to be done using the Semaphores "empty", "full", "mutex".
+             But since we are using 2 basic functions `produce()` and `consume()` and only one function runs at a time, the "mutex" is not needed.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define BUFFER_SIZE 7
 
 int buffer[BUFFER_SIZE];
-int head = 0, tail = 0;
+int head = 0, tail = 0; // To mark the FRONT and REAR of the Circular queue `buffer[]`
 int empty = BUFFER_SIZE, full = 0;
 int item = 0;
 
@@ -26,7 +33,7 @@ void consume() {
     empty++;
     full--;
 }
-
+// To print the BUFFER contents
 void printBuffer() {
     printf("Buffer contents: ");
     for (int i = 0; i < count; i++) {
