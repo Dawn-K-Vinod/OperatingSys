@@ -36,7 +36,7 @@ void consume() {
 // To print the BUFFER contents
 void printBuffer() {
     printf("Buffer contents: ");
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; index!=tail; i++) {
         int index = (head + i) % BUFFER_SIZE;
         printf("%d ", buffer[index]);
     }
