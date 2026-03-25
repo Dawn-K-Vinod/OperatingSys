@@ -51,7 +51,7 @@ void SSTF(int arr[],int len, int head) {
         head = arr[index_closest];
         arr[index_closest] = -1;
         printf("-> %d ", head);
-        total_ST += head;
+        total_ST += Shortest_ST;
     }
     printf("\nTotal seek time: %d\n\n", total_ST);
     return;
